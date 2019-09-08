@@ -5,7 +5,6 @@ import 'bootstrap';
 import axios from 'axios';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue'
-import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
 window.Vue = Vue;
@@ -15,14 +14,8 @@ window.$ = window.jQuery = jQuery;
 Vue.use(BootstrapVue);
 window.Pusher = Pusher;
 
-export const ScanNotification = new Vue();
 
-Vue.prototype.$echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'f0e241034374b7089f0e',
-    cluster: "eu",
-    forceTLS: true,
-});
+window.ScanNotification = new Vue();
 
 Vue.prototype.$http = axios;
 

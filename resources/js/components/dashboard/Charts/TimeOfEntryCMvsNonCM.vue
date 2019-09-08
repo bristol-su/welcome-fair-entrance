@@ -25,21 +25,10 @@
     export default {
         name: 'TimeOfEntryCMvsNonCM',
         components: {DataContainer, VueApexCharts},
-        props: {
-            scans: {
-                required: true,
-                default: function () {
-                    return [];
-                }
-            }
-        },
 
         data() {
             return {
                 options: {
-                    chart: {
-                        id: 'timeofentry-cm-non-cm-bar'
-                    },
                     xaxis: {
                         type: 'datetime',
                     }
@@ -55,6 +44,10 @@
             }
         },
 
+        mounted() {
+            window.ScanNotification.$on('scan', () => this.updateSeries() );
+        },
+
         watch: {
             binCount() {
                 this.updateSeries();
@@ -62,12 +55,6 @@
             chartType() {
                 this.updateSeries();
             },
-            scans: {
-                handler: function() {
-                    this.updateSeries();
-                },
-                deep: true
-            }
         },
 
         methods: {
@@ -77,68 +64,35 @@
                     data: this.cmSeriesData
                 }, {
                     name: 'Non Committee Members',
-                    data: this.noncmSeriesData
+                    data: this.ncmSeriesData
                 }];
             },
 
 
         },
 
-        computed: {
-            cmSeriesData() {
-                let bins = this.bins;
-                let binData = [];
-                for(let i = 0; i < bins.length-1;i++) {
-                    binData.push([bins[i], this.scans.filter(scan => {
-                        return isWithinInterval(
-                            new Date(scan.scanned_at*1000),
-                            {start: new Date(bins[i]), end: new Date(bins[i+1])}
-                        ) || (isEqual(new Date(scan.scanned_at*1000), new Date(bins[i])));
-                    }).filter(scan => scan.committee_member === true).length
-                    ])
-                }
-                return binData;
-            },
+    computed: {
+        cmSeriesData() {
+            let bins = this.$store.getters.bins(this.binCount);
+            let seriesData = [];
+            for (let i = 0; i < bins.length - 1; i++) {
+                let until = (bins[i + 1] ? new Date(bins[i + 1]) : new Date());
+                seriesData.push([bins[i], this.$store.getters.scansInInterval(new Date(bins[i]), until)
+                    .filter(scan => scan.committee_member === true).length]);
+            }
+            return seriesData;
+        },
 
-            noncmSeriesData() {
-                let bins = this.bins;
-                let binData = [];
-                for(let i = 0; i < bins.length-1;i++) {
-                    binData.push([bins[i], this.scans.filter(scan => {
-                        return isWithinInterval(
-                            new Date(scan.scanned_at*1000),
-                            {start: new Date(bins[i]), end: new Date(bins[i+1])}
-                        ) || (isEqual(new Date(scan.scanned_at*1000), new Date(bins[i])));
-                    }).filter(scan => scan.committee_member === false).length
-                    ])
-                }
-                return binData;
-            },
-
-            bins() {
-                let timestampLimits = this.timestampLimits;
-                let increment = differenceInMilliseconds(timestampLimits[1], timestampLimits[0]) / (this.binCount>0?this.binCount:1);
-                let currentTimestamp = timestampLimits[0];
-                let bins = [currentTimestamp];
-                while (currentTimestamp <= timestampLimits[1]) {
-                    currentTimestamp = currentTimestamp + increment;
-                    bins.push(currentTimestamp);
-                }
-                return bins;
-            },
-
-            timestampLimits() {
-                let limits = this.scans.reduce((acc, val) => {
-                    let timestamp = new Date(val.scanned_at * 1000).getTime();
-                    acc[0] = ( acc[0] === undefined || isBefore(timestamp, acc[0]) ) ? timestamp : acc[0];
-                    acc[1] = ( acc[1] === undefined || isBefore(acc[1], timestamp) ) ? timestamp : acc[1];
-                    return acc;
-                }, []);
-                if(limits.length === 2) {
-                    return limits;
-                }
-                return [subHours(new Date(), 5).getTime(), new Date().getTime()]
-            },
+        ncmSeriesData() {
+            let bins = this.$store.getters.bins(this.binCount);
+            let seriesData = [];
+            for (let i = 0; i < bins.length - 1; i++) {
+                let until = (bins[i + 1] ? new Date(bins[i + 1]) : new Date());
+                seriesData.push([bins[i], this.$store.getters.scansInInterval(new Date(bins[i]), until)
+                    .filter(scan => scan.committee_member === false).length]);
+            }
+            return seriesData;
         }
+    }
     }
 </script>

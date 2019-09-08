@@ -15,7 +15,7 @@
             </template>
 
             <template v-slot:cell(entry)="row">
-                <b-button @click="grantAccess" class="mr-2" size="xs" variant="success">
+                <b-button @click="grantAccess(row.item.uid)" class="mr-2" size="xs" variant="success">
                     Grant Entry
                 </b-button>
             </template>
@@ -80,8 +80,10 @@
         },
 
         methods: {
-            grantAccess() {
-
+            grantAccess(uid) {
+                this.$http.post('/api/uid', {uid: uid})
+                    .then(response => console.log('Granted Access'))
+                    .catch(error => console.log(error));
             },
 
             age(dob) {

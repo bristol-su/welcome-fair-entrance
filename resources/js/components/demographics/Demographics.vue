@@ -2,22 +2,22 @@
     <div>
         <b-card no-body>
             <b-tabs card>
-                <b-tab title="Totals" active>
+                <b-tab active title="Totals">
                     <b-card-text>
-                        <department-total :scans="scans"> :scans="scans"></department-total>
-                        <study-type-total :scans="scans"> :scans="scans"></study-type-total>
-                        <year-total :scans="scans"></year-total>
-                        <gender-total :scans="scans"></gender-total>
-                        <age-total :scans="scans"></age-total>
+                        <department-total></department-total>
+                        <study-type-total></study-type-total>
+                        <year-total></year-total>
+                        <gender-total></gender-total>
+                        <age-total></age-total>
                     </b-card-text>
                 </b-tab>
                 <b-tab title="Over Time">
                     <b-card-text>
-                        <department-time :scans="scans"> :scans="scans"></department-time>
-                        <study-type-time :scans="scans"> :scans="scans"></study-type-time>
-                        <year-time :scans="scans"></year-time>
-                        <gender-time :scans="scans"></gender-time>
-                        <age-time :scans="scans"></age-time>
+                        <department-time></department-time>
+                        <study-type-time></study-type-time>
+                        <year-time></year-time>
+                        <gender-time></gender-time>
+                        <age-time></age-time>
                     </b-card-text>
                 </b-tab>
             </b-tabs>
@@ -28,7 +28,6 @@
 
 
 <script>
-    import {ScanNotification} from "../../bootstrap";
     import DepartmentTotal from './Charts/Totals/Department';
     import StudyTypeTotal from './Charts/Totals/StudyType';
     import YearTotal from './Charts/Totals/Year';
@@ -40,13 +39,8 @@
     import YearTime from './Charts/Time/Year';
     import GenderTime from './Charts/Time/Gender';
     import AgeTime from './Charts/Time/Age';
-    export default {
-        data() {
-            return {
-                scans: []
-            }
-        },
 
+    export default {
         components: {
             DepartmentTotal, DepartmentTime,
             StudyTypeTotal, StudyTypeTime,
@@ -54,40 +48,6 @@
             GenderTotal, GenderTime,
             AgeTotal, AgeTime
         },
-
-        created() {
-            this.$echo.channel('welcome-fair')
-                .listen('ScanUpdated', (event) => {
-                    this.replaceScan(event.scan);
-                    ScanNotification.$emit('scan', event.scan);
-                })
-                .listen('ScanCreated', (event) => {
-                    this.appendScan(event.scan);
-                    ScanNotification.$emit('scan', event.scan);
-                });
-            this.getScans();
-
-        },
-
-        methods: {
-            getScans() {
-                this.$http.get('/api/scan')
-                    .then(response => {
-                        response.data.forEach(scan => this.appendScan(scan));
-                    })
-                    .catch(error => console.log(error));
-            },
-
-            appendScan(scan) {
-                this.scans.push(scan);
-            },
-
-            replaceScan(scan) {
-                this.scans.splice(this.scans.map(scansMap => scansMap.id).indexOf(scan.id), 1, scan);
-            },
-        },
-
-
     }
 </script>
 

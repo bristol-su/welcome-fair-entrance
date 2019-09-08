@@ -15,7 +15,7 @@ class CreateScansTable extends Migration
     {
         Schema::create('scans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('card_number');
+            $table->text('card_number')->nullable();
             $table->boolean('committee_member')->nullable();
             $table->string('department')->nullable();
             $table->string('study_type')->nullable();

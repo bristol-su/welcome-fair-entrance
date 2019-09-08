@@ -50,13 +50,11 @@
             }
         },
 
+        mounted() {
+            window.ScanNotification.$on('scan', () => this.updateSeries() );
+        },
+
         watch: {
-            scans: {
-                deep: true,
-                handler: function() {
-                    this.updateSeries();
-                }
-            },
             chartType() {
                 this.updateSeries();
             }
@@ -78,7 +76,7 @@
         computed: {
             yearsFrequency() {
                 let frequency = {};
-                this.scans.forEach(scan => {
+                this.$store.getters.scans.forEach(scan => {
                     if(frequency[scan.age] !== undefined) {
                         frequency[scan.age]++;
                     } else {

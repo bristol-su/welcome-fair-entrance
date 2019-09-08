@@ -24,15 +24,6 @@
             DataContainer, VueApexCharts
         },
 
-        props: {
-            scans: {
-                type: Array,
-                default: function() {
-                    return [];
-                }
-            },
-        },
-
         data() {
             return {
                 options: {
@@ -51,12 +42,6 @@
         },
 
         watch: {
-            scans: {
-                deep: true,
-                handler: function() {
-                    this.updateSeries();
-                }
-            },
             chartType() {
                 this.updateSeries();
             }
@@ -75,10 +60,14 @@
             },
         },
 
+        mounted() {
+            window.ScanNotification.$on('scan', () => this.updateSeries() );
+        },
+
         computed: {
             yearsFrequency() {
                 let frequency = {};
-                this.scans.forEach(scan => {
+                this.$store.getters.scans.forEach(scan => {
                     if(frequency['Year ' + scan.programme_year] !== undefined) {
                         frequency['Year ' + scan.programme_year]++;
                     } else {

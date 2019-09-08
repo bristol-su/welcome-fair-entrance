@@ -2,18 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7958707e-1023-4164-a20d-ec23b21e95c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/uid/index/search/SearchFields.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/uid/index/search/Table.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/welcome-entrance.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/welcome-entrance.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/store/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UidController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UidController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_07_165223_create_scans_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_07_165223_create_scans_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/uid/index/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/uid/index/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/Charts/Overview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashboard/Charts/Overview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/Charts/TimeOfEntry.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashboard/Charts/TimeOfEntry.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/Charts/TimeOfEntryCMvsNonCM.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashboard/Charts/TimeOfEntryCMvsNonCM.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashboard/Dashboard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Age.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Age.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Department.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Department.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Gender.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Gender.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/StudyType.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/StudyType.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Year.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/demographics/Charts/Totals/Year.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/demographics/Demographics.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/demographics/Demographics.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/uid/index/search/Table.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/uid/index/search/Table.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Vue Single File Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -205,7 +212,7 @@
       <updated>1567865853812</updated>
       <workItem from="1567865855341" duration="23332000" />
       <workItem from="1567930635253" duration="79000" />
-      <workItem from="1567937254151" duration="22457000" />
+      <workItem from="1567937254151" duration="33137000" />
     </task>
     <servers />
   </component>

@@ -54,14 +54,6 @@
     import DataContainer from "../../utilities/DataContainer";
 
     export default {
-        props: {
-            scans: {
-                type: Array,
-                default: function() {
-                    return [];
-                }
-            }
-        },
 
         components: {
             DataContainer
@@ -69,17 +61,17 @@
 
         computed: {
             scanCount() {
-                return this.scans.length;
+                return this.$store.getters.scans.length;
             },
 
             processedCount() {
-                return this.scans.filter(scan => {
+                return this.$store.getters.scans.filter(scan => {
                     return scan.committee_member !== null && scan.study_type !== null;
                 }).length;
             },
 
             committeeMembers() {
-                return this.scans.filter(scan => scan.committee_member === true).length;
+                return this.$store.getters.scans.filter(scan => scan.committee_member === true).length;
             }
         }
     }

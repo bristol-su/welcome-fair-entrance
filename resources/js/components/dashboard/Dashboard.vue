@@ -1,18 +1,15 @@
 <template>
     <div>
-        <overview
-            :scans="scans">
+        <overview>
 
         </overview>
 
-        <TimeOfEntry
-            :scans="scans">
+        <TimeOfEntry>
 
         </TimeOfEntry>
 
 
-        <TimeOfEntryCMvsNonCM
-            :scans="scans">
+        <TimeOfEntryCMvsNonCM>
 
         </TimeOfEntryCMvsNonCM>
     </div>
@@ -27,46 +24,8 @@
     import TimeOfEntryCMvsNonCM from "./Charts/TimeOfEntryCMvsNonCM";
 
     export default {
-        data() {
-            return {
-                scans: []
-            }
-        },
 
         components: {TimeOfEntryCMvsNonCM, TimeOfEntry, Overview},
-
-        created() {
-            this.$echo.channel('welcome-fair')
-                .listen('ScanUpdated', (event) => {
-                    this.replaceScan(event.scan);
-                    ScanNotification.$emit('scan', event.scan);
-                })
-                .listen('ScanCreated', (event) => {
-                    this.appendScan(event.scan);
-                    ScanNotification.$emit('scan', event.scan);
-                });
-            this.getScans();
-
-        },
-
-        methods: {
-            getScans() {
-                this.$http.get('/api/scan')
-                    .then(response => {
-                        response.data.forEach(scan => this.appendScan(scan));
-                    })
-                    .catch(error => console.log(error));
-            },
-
-            appendScan(scan) {
-                this.scans.push(scan);
-            },
-
-            replaceScan(scan) {
-                this.scans.splice(this.scans.map(scansMap => scansMap.id).indexOf(scan.id), 1, scan);
-            },
-        },
-
 
     }
 </script>
