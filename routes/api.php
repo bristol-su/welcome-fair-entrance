@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('scan', 'Api\ScanController');
+Route::get('/uid/search', 'Api\UidController@search');
 Route::apiResource('uid', 'Api\UidController');
-
