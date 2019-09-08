@@ -29,15 +29,6 @@
             DataContainer, VueApexCharts
         },
 
-        props: {
-            scans: {
-                type: Array,
-                default: function() {
-                    return [];
-                }
-            },
-        },
-
         data() {
             return {
                 options: {
@@ -56,6 +47,10 @@
             }
         },
 
+        mounted() {
+            window.ScanNotification.$on('scan', () => this.updateSeries() );
+        },
+
         watch: {
             binCount() {
                 this.updateSeries();
@@ -63,76 +58,41 @@
             chartType() {
                 this.updateSeries();
             },
-            scans: {
-                handler: function() {
-                    this.updateSeries();
-                },
-                deep: true
-            }
         },
 
         methods: {
             updateSeries() {
                 this.series = this.seriesData;
             },
-
-
         },
 
         computed: {
             seriesData() {
-                let bins = this.bins;
-                let binData = {};
-                for(let i = 0; i < bins.length-1;i++) {
-                    let res = this.scans.filter(scan => { // Get only scans in this interval
-                        return isWithinInterval(
-                            new Date(scan.scanned_at*1000),
-                            {start: new Date(bins[i]), end: new Date(bins[i+1])}
-                        ) || (isEqual(new Date(scan.scanned_at*1000), new Date(bins[i])));
-                    }).reduce((agg, val) => {
-                        if(agg[val.age] !== undefined) {
-                            agg[val.age]++;
-                        } else {
-                            agg[val.age] = 1;
-                        }
-                        return agg;
-                    }, {});
+                let bins = this.$store.getters.bins(this.binCount);
+                let seriesData = [];
+                for(let i = 0; i < bins.length;i++) {
+                    let until = (bins[i+1] ? new Date(bins[i+1]) : new Date());
+                    let res = this.$store.getters.scansInInterval(new Date(bins[i]), until)
+                        .reduce((agg, val) => {
+                            if(agg[val.age] !== undefined) {
+                                agg[val.age]++;
+                            } else {
+                                agg[val.age] = 1;
+                            }
+                            return agg;
+                        }, {});
                     Object.keys(res).forEach(age => {
-                        if(binData[age] === undefined) {
-                            binData[age] = [];
+                        if(seriesData[age] === undefined) {
+                            seriesData[age] = [];
                         }
-                        binData[age].push([bins[i], res[age]]);
+                        seriesData[age].push([bins[i], res[age]]);
                     })
                 }
-                return Object.keys(binData).map(age => {
-                    return {name: age, data: binData[age]};
+                return Object.keys(seriesData).map(age => {
+                    return {name: age, data: seriesData[age]};
                 });
             },
 
-            bins() {
-                let timestampLimits = this.timestampLimits;
-                let increment = differenceInMilliseconds(timestampLimits[1], timestampLimits[0]) / (this.binCount>0?this.binCount:1);
-                let currentTimestamp = timestampLimits[0];
-                let bins = [currentTimestamp];
-                while (currentTimestamp <= timestampLimits[1]) {
-                    currentTimestamp = currentTimestamp + increment;
-                    bins.push(currentTimestamp);
-                }
-                return bins;
-            },
-
-            timestampLimits() {
-                let limits = this.scans.reduce((acc, val) => {
-                    let timestamp = new Date(val.scanned_at * 1000).getTime();
-                    acc[0] = ( acc[0] === undefined || isBefore(timestamp, acc[0]) ) ? timestamp : acc[0];
-                    acc[1] = ( acc[1] === undefined || isBefore(acc[1], timestamp) ) ? timestamp : acc[1];
-                    return acc;
-                }, []);
-                if(limits.length === 2) {
-                    return limits;
-                }
-                return [subHours(new Date(), 5).getTime(), new Date().getTime()]
-            },
         }
 
     }
