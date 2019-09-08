@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Scan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Twigger\UnionCloud\API\Exception\Resource\ResourceNotFoundException;
 use Twigger\UnionCloud\API\UnionCloud;
 
 class UidController extends Controller
@@ -39,7 +38,7 @@ class UidController extends Controller
 
         return collect($result->toArray())->map(function($user) {
             return $user->attributes;
-        });
+        })->take(50);
     }
 
 }

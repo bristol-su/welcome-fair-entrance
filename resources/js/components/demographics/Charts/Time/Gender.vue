@@ -29,6 +29,10 @@
             DataContainer, VueApexCharts
         },
 
+        mounted() {
+            window.ScanNotification.$on('scan', () => this.updateSeries());
+        },
+
         data() {
             return {
                 options: {
