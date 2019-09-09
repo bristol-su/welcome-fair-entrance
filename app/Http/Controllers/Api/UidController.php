@@ -20,7 +20,7 @@ class UidController extends Controller
             'scanned_at' => Carbon::now()
         ]);
 
-        event(new UidScanUpdateRequest($scan, $request->input('uid')));
+        event(new UidScanUpdateRequest($scan, $request->input('uid', $request->input('tid'))));
 
         return $scan;
     }
@@ -29,7 +29,7 @@ class UidController extends Controller
     {
         try {
             $result = $unionCloud->users()->search(
-                $request->only(['id', 'forename', 'surname', 'email'])
+                $request->only(['id', 'forename', 'surname', 'email', 'dob'])
             )->get();
         } catch (ResourceNotFoundException $e) {
             return [];

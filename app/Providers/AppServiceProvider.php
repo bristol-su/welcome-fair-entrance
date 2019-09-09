@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use ArkonEvent\CodeReadr\ApiClient\Client;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->instance(
+            Client::class,
+            new Client(config('codereadr.key'))
+        );
     }
 
     /**

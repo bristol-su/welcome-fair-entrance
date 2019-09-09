@@ -8,11 +8,8 @@
                 </div>
             </template>
 
-            <template v-slot:cell(show_details)="row">
-                <b-button @click="row.toggleDetails" class="mr-2" size="xs">
-                    {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-                </b-button>
-            </template>
+
+
 
             <template v-slot:cell(entry)="row">
                 <b-button @click="grantAccess(row.item.uid)" class="mr-2" size="xs" variant="success">

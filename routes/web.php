@@ -20,3 +20,7 @@ Route::get('/scan', 'ScanController@index');
 Route::get('/scan/create', 'ScanController@create');
 
 Route::get('/uid', 'UidController@index');
+
+Route::get('/no-card', 'NoCardController@index');
+Route::get('/no-card/student', 'NoCardController@create');
+Route::post('/no-card/student', 'NoCardController@store');
