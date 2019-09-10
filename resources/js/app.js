@@ -5,27 +5,16 @@ import ScanCreate from "./components/scan/create/Create";
 import ScanIndex from "./components/scan/index/Index";
 import UidIndex from './components/uid/index/Index';
 
-import NoCardIndex from './components/nocard/index/Index';
-import NoCardCreate from './components/nocard/create/Create';
+import NoCard from './components/qrcode/NoCard';
 
-import store from './store/store';
-import Echo from "laravel-echo";
 
-window.store = store;
-
-store.dispatch('refreshScans');
-
-let echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'f0e241034374b7089f0e',
-    cluster: "eu",
-    forceTLS: true,
-});
-
-echo.channel('welcome-fair')
+window.Echo.channel('welcome-fair')
     .listen('ScanUpdated', (event) => {
         store.dispatch('pushOrReplaceScan', event.scan);
     });
+
+export const ScanNotification = new Vue();
+window.ScanNotification = ScanNotification;
 
 let vue = new Vue({
     el: '#content',
@@ -39,7 +28,6 @@ let vue = new Vue({
 
         UidIndex,
 
-        NoCardIndex,
-        NoCardCreate
+        NoCard
     }
 });

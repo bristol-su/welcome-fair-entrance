@@ -11,16 +11,26 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index');
-Route::get('/demographics', 'HomeController@demographics');
+Auth::routes(['register' => false]);
 
-Route::get('/scan', 'ScanController@index');
-Route::get('/scan/create', 'ScanController@create');
+// No Student Card Routes
+Route::middleware('guest')->group(function() {
+    Route::get('/', 'NoCardController@index');
+    Route::post('/', 'NoCardController@store');
+});
 
-Route::get('/uid', 'UidController@index');
+// Administrator Routes
+Route::middleware('auth:web')->group(function() {
 
-Route::get('/no-card', 'NoCardController@index');
-Route::get('/no-card/student', 'NoCardController@create');
-Route::post('/no-card/student', 'NoCardController@store');
+    Route::get('/dashboard', 'HomeController@index');
+    Route::get('/demographics', 'HomeController@demographics');
+
+    Route::get('/scan', 'ScanController@index');
+    Route::get('/scan/create', 'ScanController@create');
+
+    Route::get('/lookup', 'UidController@index');
+});
+
