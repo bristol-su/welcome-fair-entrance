@@ -21,6 +21,7 @@
     import VueApexCharts from 'vue-apexcharts'
     import DataContainer from "../../utilities/DataContainer";
     import {subHours, isBefore, differenceInMilliseconds, isWithinInterval, isEqual} from 'date-fns';
+    import _ from 'lodash';
 
     export default {
         name: 'TimeOfEntryCMvsNonCM',
@@ -58,7 +59,7 @@
         },
 
         methods: {
-            updateSeries() {
+            updateSeries: _.throttle(function() {
                 this.series = [{
                     name: 'Committee Members',
                     data: this.cmSeriesData
@@ -66,9 +67,7 @@
                     name: 'Non Committee Members',
                     data: this.ncmSeriesData
                 }];
-            },
-
-
+            }, 3000),
         },
 
     computed: {

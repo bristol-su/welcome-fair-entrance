@@ -15,6 +15,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'unioncloud' => [
+        'enable' => env('UNIONCLOUD_ENABLED', false),
+        'usergroup_id' => env('UNIONCLOUD_USERGROUP_ID', null)
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Environment

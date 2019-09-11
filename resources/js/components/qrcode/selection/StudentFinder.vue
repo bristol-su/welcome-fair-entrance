@@ -30,7 +30,7 @@
         methods: {
             search(parameters) {
                 this.loading = true;
-                this.$http.get('/api/uid/search', {
+                this.$http.get('/api/uid', {
                     params: {dob: parameters.dob, surname: parameters.lastname}
                 })
                     .then(response => this.results = response.data)

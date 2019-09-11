@@ -15,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('scan', 'Api\ScanController');
-Route::get('/uid/search', 'Api\UidController@search');
-Route::post('/uid/codereadr', 'Api\UidController@codeReadr');
-Route::apiResource('uid', 'Api\UidController');
+// Search for a uid by details
+Route::get('/uid', 'Api\UidController@search');
+// Create a UID scan
+Route::post('/uid', 'Api\UidController@store');
+
+// New Scan and all scans
+Route::apiResource('scan', 'Api\ScanController')->only(['store', 'index']);
+
+
+Route::post('/qrcode', 'Api\QrCodeController@store');
+Route::post('/qrcode/redeem', 'Api\QrCodeController@redeem');

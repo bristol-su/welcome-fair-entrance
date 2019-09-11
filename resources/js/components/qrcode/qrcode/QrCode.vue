@@ -48,7 +48,7 @@
         methods: {
             createQrCode() {
                 this.loading = true;
-                this.$http.post('/', {uid: this.student.uid})
+                this.$http.post('/api/qrcode', {uid: this.student.uid})
                     .then(response => {
                         this.image = response.data
                     })

@@ -20,6 +20,7 @@
 <script>
     import VueApexCharts from 'vue-apexcharts'
     import DataContainer from "../../utilities/DataContainer";
+    import _ from 'lodash';
 
     export default {
         name: 'TimeOfEntry',
@@ -57,14 +58,12 @@
         },
 
         methods: {
-            updateSeries() {
+            updateSeries: _.throttle(function() {
                 this.series = [{
                     name: 'Entrances',
                     data: this.seriesData
                 }];
-            },
-
-
+            }, 3000),
         },
 
         computed: {

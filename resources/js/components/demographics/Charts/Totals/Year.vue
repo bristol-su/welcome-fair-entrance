@@ -17,6 +17,7 @@
 <script>
     import DataContainer from "../../../utilities/DataContainer";
     import VueApexCharts from 'vue-apexcharts';
+    import _ from 'lodash';
     export default {
         name: "Year",
 
@@ -48,7 +49,7 @@
         },
 
         methods: {
-            updateSeries() {
+            updateSeries: _.throttle(function() {
                 let frequency = this.yearsFrequency.sort((a, b) => a.x > b.x ? 1 : -1 );
                 if(this.chartType === 'pie' || this.chartType === 'donut') {
                     this.series = frequency.map(freq => freq.y);
@@ -57,7 +58,7 @@
                     this.series = [{name: 'Entrances', data: frequency}];
                     this.options.labels = []
                 }
-            },
+            }, 3000),
         },
 
         mounted() {

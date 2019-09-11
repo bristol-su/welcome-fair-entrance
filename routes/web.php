@@ -19,18 +19,15 @@ Auth::routes(['register' => false]);
 // No Student Card Routes
 Route::middleware('guest')->group(function() {
     Route::get('/', 'NoCardController@index');
-    Route::post('/', 'NoCardController@store');
 });
 
 // Administrator Routes
 Route::middleware('auth:web')->group(function() {
 
-    Route::get('/dashboard', 'HomeController@index');
-    Route::get('/demographics', 'HomeController@demographics');
-
+    Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/demographics', 'DemographicsController@index');
     Route::get('/scan', 'ScanController@index');
     Route::get('/scan/create', 'ScanController@create');
-
     Route::get('/lookup', 'UidController@index');
 });
 

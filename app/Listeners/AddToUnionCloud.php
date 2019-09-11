@@ -4,19 +4,26 @@ namespace App\Listeners;
 
 use App\Events\ScanCreated;
 use App\Events\UidScanUpdateRequest;
+use App\Support\UnionCloud\UnionCloud;
+use Faker\Generator as Faker;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UpdateUidScanControl
+class AddToUnionCloud
 {
+    /**
+     * @var UnionCloud
+     */
+    private $unionCloud;
+
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UnionCloud $unionCloud)
     {
-        //
+        $this->unionCloud = $unionCloud;
     }
 
     /**
@@ -27,10 +34,8 @@ class UpdateUidScanControl
      */
     public function handle(UidScanUpdateRequest $event)
     {
-        // TODO
-        $uid = $event->uid;
-        $scan = $event->scan;
-        $scan->committee_member = (rand(0, 100) >= 95);
-        $scan->save();
+        if(config('app.unioncloud.enable')) {
+            $this->unionCloud->addToUserGroup($event->uid, config('app.unioncloud.usergroup_id'));
+        }
     }
 }

@@ -72,6 +72,7 @@
 </template>
 
 <script>
+    import _ from 'lodash';
 
     export default {
 
@@ -112,7 +113,7 @@
 
             updateResults: _.debounce(function() {
                 this.$emit('busy', true);
-                this.$http.get('/api/uid/search', {
+                this.$http.get('/api/uid', {
                     params: this.searchFields
                 })
                     .then(response => this.$emit('input', response.data))

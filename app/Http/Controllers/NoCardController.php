@@ -19,22 +19,5 @@ class NoCardController extends Controller
         return view('nocard.nocard');
     }
 
-    public function store(Request $request, Client $client, Codereadr $codeReadr)
-    {
-        $request->validate([
-            'uid' => 'required'
-        ]);
 
-
-        $codeReadr->request(Codereadr::SECTION_DATABASES, 'upsertvalue', [
-            'database_id' => config('codereadr.database_id'),
-            'value' => $request->input('uid')
-        ]);
-
-        $response = $client->get('https://barcode.codereadr.com/api/?section=barcode&action=generate&api_key='.config('codereadr.key').'&value='.$request->input('uid'));
-
-        return Response::make(base64_encode($response->getBody()->getContents()), 200, [
-            'content-type' => 'image/png'
-        ]);
-    }
 }

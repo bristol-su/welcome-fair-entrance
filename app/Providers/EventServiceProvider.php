@@ -5,7 +5,8 @@ namespace App\Providers;
 use App\Events\ScanCreated;
 use App\Events\ScanUpdateRequest;
 use App\Events\UidScanUpdateRequest;
-use App\Listeners\UpdateScanControl;
+use App\Listeners\AddToUnionCloud;
+use App\Listeners\FindUidFromLibraryCard;
 use App\Listeners\UpdateScanDemographics;
 use App\Listeners\UpdateUidScanControl;
 use App\Listeners\UpdateUidScanDemographics;
@@ -24,11 +25,11 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UidScanUpdateRequest::class => [
             UpdateUidScanControl::class,
-            UpdateUidScanDemographics::class
+            UpdateUidScanDemographics::class,
+            AddToUnionCloud::class
         ],
         ScanUpdateRequest::class => [
-            UpdateScanControl::class,
-            UpdateScanDemographics::class
+            FindUidFromLibraryCard::class,
         ],
     ];
 

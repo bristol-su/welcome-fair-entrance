@@ -21,6 +21,7 @@
     import DataContainer from "../../../utilities/DataContainer";
     import VueApexCharts from 'vue-apexcharts';
     import {subHours, isBefore, differenceInMilliseconds, isWithinInterval, isEqual} from 'date-fns';
+    import _ from 'lodash';
 
 
     export default {
@@ -61,9 +62,9 @@
         },
 
         methods: {
-            updateSeries() {
+            updateSeries: _.throttle(function() {
                 this.series = this.seriesData;
-            },
+            }, 3000),
         },
 
         computed: {
