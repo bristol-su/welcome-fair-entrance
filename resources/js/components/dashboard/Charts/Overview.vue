@@ -4,7 +4,7 @@
 
         <div class="card-bg-secondary">
             <div class="d-flex">
-                <div class="w-25 border-right border-bottom">
+                <div class="w-50 border-right border-bottom">
                     <div class="p-4">
                         <small class="text-uppercase">Total Scans</small>
 
@@ -14,36 +14,15 @@
                     </div>
                 </div>
 
-                <div class="w-25 border-right border-bottom">
+                <div class="w-50 border-right border-bottom">
                     <div class="p-4">
-                        <small class="text-uppercase">Scans Processed</small>
+                        <small class="text-uppercase">Scans in the last hour</small>
 
                         <h4 class="mt-4 mb-0">
-                            {{processedCount}}
+                            {{scanCountLastHour}}
                         </h4>
                     </div>
                 </div>
-
-                <div class="w-25 border-right border-bottom">
-                    <div class="p-4">
-                        <small class="text-uppercase">Committee Members</small>
-
-                        <h4 class="mt-4 mb-0">
-                            {{committeeMembers}}
-                        </h4>
-                    </div>
-                </div>
-
-                <div class="w-25 border-right border-bottom">
-                    <div class="p-4">
-                        <small class="text-uppercase">Non-Committee Members</small>
-
-                        <h4 class="mt-4 mb-0">
-                            {{scanCount - committeeMembers}}
-                        </h4>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -52,6 +31,7 @@
 
 <script>
     import DataContainer from "../../utilities/DataContainer";
+    import {isWithinInterval, subHours} from 'date-fns';
 
     export default {
 
@@ -64,15 +44,15 @@
                 return this.$store.getters.scans.length;
             },
 
-            processedCount() {
+            scanCountLastHour() {
                 return this.$store.getters.scans.filter(scan => {
-                    return scan.committee_member !== null && scan.study_type !== null;
+                    return isWithinInterval(
+                        new Date(scan.scanned_at * 1000),
+                        {start: subHours(new Date(), 1), end: new Date()}
+                    );
                 }).length;
             },
 
-            committeeMembers() {
-                return this.$store.getters.scans.filter(scan => scan.committee_member === true).length;
-            }
         }
     }
 </script>

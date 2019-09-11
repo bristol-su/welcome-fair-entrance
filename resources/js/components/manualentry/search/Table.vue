@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-table :busy="busyState" :fields="fields" :items="results" striped>
+        <b-table :style="{backgroundColor: backgroundColor}" :busy="busyState" :fields="fields" :items="results" striped>
             <template v-slot:table-busy>
                 <div class="text-center text-danger my-2">
                     <b-spinner class="align-middle"></b-spinner>
@@ -72,14 +72,20 @@
                     {key: 'institution_email', sortable: true},
                     {key: 'show_details'},
                     {key: 'entry'}
-                ]
+                ],
+                backgroundColor: 'white'
             }
         },
 
         methods: {
             grantAccess(uid) {
                 this.$http.post('/api/uid', {uid: uid})
-                    .then(response => console.log('Granted Access'))
+                    .then(response => {
+                        this.backgroundColor = '#00cf64';
+                        window.setTimeout(() => {
+                            this.backgroundColor = 'white';
+                        }, 1000)
+                    })
                     .catch(error => console.log(error));
             },
 
