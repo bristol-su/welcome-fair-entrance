@@ -6,11 +6,16 @@ Vue.use(Vuex);
 
 const state = {
     scans: [],
+    updates: true
 };
 
 const getters = {
     scans: (state) => {
         return state.scans;
+    },
+
+    updates: (state) => {
+        return state.updates;
     },
 
     bins: (state, getters) => (numberOfBins) => {
@@ -56,12 +61,7 @@ const getters = {
 };
 
 const actions = {
-    refreshScans: ({ state }) => {
-        axios.get('/api/scan')
-            .then(response => state.scans = response.data)
-            .catch(error => console.log(error))
-            .then(response => window.ScanNotification.$emit('scan'));
-    },
+
 
     pushScan: ({commit}, scan) => {
         commit('pushScan', scan);
@@ -83,7 +83,7 @@ const actions = {
 const mutations = {
     pushScan (state, scan) {
         state.scans.push(scan);
-        window.ScanNotification.$emit('scan');
+        window.ScanNotification.notify();
     },
 
     replaceScan(state, scan) {
@@ -92,7 +92,16 @@ const mutations = {
             1,
             scan
         );
-        window.ScanNotification.$emit('scan');
+        window.ScanNotification.notify();
+    },
+
+    setScans(state, scans) {
+        state.scans = scans;
+        window.ScanNotification.notify();
+    },
+
+    setUpdates(state, updates) {
+        state.updates = updates;
     }
 };
 

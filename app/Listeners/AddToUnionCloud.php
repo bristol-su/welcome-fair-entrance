@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AddToUnionCloud
+class AddToUnionCloud implements ShouldQueue
 {
     /**
      * @var UnionCloud

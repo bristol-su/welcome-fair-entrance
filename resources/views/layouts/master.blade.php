@@ -77,7 +77,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('app.name', 'Welcome Fair') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -151,5 +151,5 @@
 
 </body>
 @include('templates.javascript')
-<script type="text/javascript" src="{{asset('/js/app.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/dashboard.js')}}"></script>
 </html>

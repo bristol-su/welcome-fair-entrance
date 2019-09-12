@@ -10,7 +10,7 @@ use Faker\Generator as Faker;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UpdateUidScanDemographics
+class UpdateUidScanDemographics implements ShouldQueue
 {
     /**
      * @var UnionCloud

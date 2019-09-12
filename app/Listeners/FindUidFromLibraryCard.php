@@ -10,7 +10,7 @@ use Illuminate\Cache\Repository;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FindUidFromLibraryCard
+class FindUidFromLibraryCard implements ShouldQueue
 {
     /**
      * @var UnionCloud

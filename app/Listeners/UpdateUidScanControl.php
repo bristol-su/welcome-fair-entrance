@@ -7,7 +7,7 @@ use App\Events\UidScanUpdateRequest;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UpdateUidScanControl
+class UpdateUidScanControl implements ShouldQueue
 {
     /**
      * Create the event listener.
