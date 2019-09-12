@@ -14,6 +14,10 @@ const getters = {
         return state.scans;
     },
 
+    scansMostRecent: (state) => {
+        return state.scans.sort((a, b) => (b.id - a.id))
+    },
+
     updates: (state) => {
         return state.updates;
     },
@@ -84,6 +88,12 @@ const mutations = {
     pushScan (state, scan) {
         state.scans.push(scan);
         window.ScanNotification.notify();
+    },
+
+    pushScans (state, scans) {
+        for(let i = 0; i < scans.length; i++) {
+            state.scans.push(scans[i]);
+        }
     },
 
     replaceScan(state, scan) {

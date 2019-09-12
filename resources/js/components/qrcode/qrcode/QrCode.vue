@@ -2,34 +2,55 @@
     <div>
         <b-row>
             <b-col>
-                Welcome {{student.forename}}!
+                <strong>Name:</strong> {{forename}} {{surname}}
             </b-col>
         </b-row>
         <b-row>
             <b-col>
-                <strong>Name:</strong> {{student.forename}} {{student.surname}}!
+                <strong>DoB:</strong> {{formattedDob}} (age {{age}})
             </b-col>
         </b-row>
 
         <b-row>
             <b-col>
-                <div v-if="loading">Loading</div>
-                <div v-else-if="!imageExists">Reload</div>
-                <img alt="" :src="'data:image/png;charset=utf-8;base64, ' + image" />
+                <div v-if="!imageExists && !loading">
+                    <b-button variant="warning" size="xs" @click="createQrCode()">Reload</b-button>
+                </div>
+                <div style="height: 251px; width: 202px; margin: auto;" :class="{bordered: !imageExists}" >
+                    <img alt="Loading..." :src="'data:image/png;charset=utf-8;base64, ' + image" />
+                </div>
             </b-col>
         </b-row>
 
+        <b-row>
+            <b-col>
+                <b-button variant="secondary" @click="$emit('restart')">Restart</b-button>
+            </b-col>
+        </b-row>
     </div>
 
 </template>
 
 <script>
+    import {differenceInCalendarYears, format} from 'date-fns';
     export default {
         name: "QrCode",
 
         props: {
-            student: {
-                type: Object,
+            forename: {
+                type: String,
+                required: true
+            },
+            surname: {
+                type: String,
+                required: true
+            },
+            uid: {
+                type: Number,
+                required: true
+            },
+            dob: {
+                type: String,
                 required: true
             }
         },
@@ -48,7 +69,7 @@
         methods: {
             createQrCode() {
                 this.loading = true;
-                this.$http.post('/api/qrcode', {uid: this.student.uid})
+                this.$http.post('/api/qrcode', {uid: this.uid})
                     .then(response => {
                         this.image = response.data
                     })
@@ -63,6 +84,14 @@
         computed: {
             imageExists() {
                 return this.image !== null;
+            },
+
+            age() {
+                return differenceInCalendarYears(new Date(), new Date(this.dob));
+            },
+
+            formattedDob() {
+                return format(new Date(this.dob), 'dd/MM/y');
             }
         }
 
@@ -70,5 +99,7 @@
 </script>
 
 <style scoped>
-
+    .bordered {
+        border: 1px solid black;
+    }
 </style>

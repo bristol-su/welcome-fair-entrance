@@ -4,11 +4,14 @@ import axios from 'axios';
 import Vue from 'vue';
 import {BRow, BForm, BTable, BButton, BFormInput, BCol, BButtonGroup} from 'bootstrap-vue';
 import NoCard from './components/qrcode/NoCard';
+import VueCookies from 'vue-cookies';
 
 // Window assignments
 window.Vue = Vue;
 window.axios = axios;
 window.Popper = Popper.default;
+
+Vue.use(VueCookies);
 
 // Axios
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

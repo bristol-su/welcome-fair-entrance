@@ -40,6 +40,11 @@
                     xaxis: {
                         type: 'datetime',
                     },
+                    tooltip: {
+                        x: {
+                            format: 'dd/mm/yy HH:mm',
+                        },
+                    },
                 },
                 series: [],
                 binCount: 15,

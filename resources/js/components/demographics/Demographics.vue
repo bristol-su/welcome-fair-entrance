@@ -4,20 +4,76 @@
             <b-tabs card>
                 <b-tab active title="Totals">
                     <b-card-text>
-                        <department-total></department-total>
-                        <study-type-total></study-type-total>
-                        <year-total></year-total>
-                        <gender-total></gender-total>
-                        <age-total></age-total>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="box mt-4">
+                                    <year-total></year-total>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="box  mt-4">
+                                    <study-type-total></study-type-total>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="box mt-4">
+                                    <department-total></department-total>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="box  mt-4">
+                                    <gender-total></gender-total>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box mt-4">
+                                    <age-total></age-total>
+                                </div>
+                            </div>
+                        </div>
                     </b-card-text>
                 </b-tab>
                 <b-tab title="Over Time">
                     <b-card-text>
-                        <department-time></department-time>
-                        <study-type-time></study-type-time>
-                        <year-time></year-time>
-                        <gender-time></gender-time>
-                        <age-time></age-time>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="box mt-4">
+                                    <year-time></year-time>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="box  mt-4">
+                                    <study-type-time></study-type-time>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="box mt-4">
+                                    <department-time></department-time>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="box  mt-4">
+                                    <gender-time></gender-time>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box mt-4">
+                                    <age-time></age-time>
+                                </div>
+                            </div>
+                        </div>
                     </b-card-text>
                 </b-tab>
             </b-tabs>

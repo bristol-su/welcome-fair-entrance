@@ -17,18 +17,17 @@ class ScanController extends Controller
     {
         $scan = Scan::create([
             'card_number' => $request->input('card_number'),
-            'scanned_at' => new Carbon($request->input('scanned_at', 'now))
+            'scanned_at' => new Carbon($request->input('scanned_at', 'now'))
         ]);
 
         event(new ScanUpdateRequest($scan));
 
         return $scan;
-
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return Scan::all();
+        return Scan::paginate(300);
     }
 
 }

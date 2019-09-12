@@ -36,6 +36,11 @@
                     xaxis: {
                         type: 'datetime',
                     },
+                    tooltip: {
+                        x: {
+                            format: 'dd HH:mm',
+                        },
+                    },
                 },
                 series: [],
                 binCount: 15,
@@ -62,7 +67,7 @@
         },
 
         methods: {
-            updateSeries: _.throttle(function() {
+            updateSeries: _.debounce(function() {
                 this.series = this.seriesData;
             }, 3000),
         },

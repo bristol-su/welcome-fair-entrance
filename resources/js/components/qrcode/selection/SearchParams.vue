@@ -25,8 +25,11 @@
                         </b-col>
                     </b-row>
                     <b-row class="my-1">
-                        <b-col sm="12">
+                        <b-col sm="6">
                             <b-button type="submit" width="100%">Find Me!</b-button>
+                        </b-col>
+                        <b-col sm="6">
+                            <b-button variant="danger" @click="$emit('restart')">Restart</b-button>
                         </b-col>
                     </b-row>
                 </b-form>

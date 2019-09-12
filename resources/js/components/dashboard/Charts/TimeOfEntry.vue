@@ -1,3 +1,4 @@
+
 <template>
     <data-container title="Time of entry">
         <b-form-group label="Chart Type" label-for="chart-type">
@@ -31,6 +32,11 @@
                 options: {
                     xaxis: {
                         type: 'datetime',
+                    },
+                    tooltip: {
+                        x: {
+                            format: 'dd/mm/yy HH:mm',
+                        },
                     }
                 },
                 series: [],

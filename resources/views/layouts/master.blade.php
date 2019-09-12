@@ -132,6 +132,7 @@
     <main class="py-4">
 
         <div class="content" id="content">
+            @auth
             <div class="title m-b-md">
                 Welcome Fair 2019
             </div>
@@ -144,6 +145,7 @@
                 <a href="{{url('/demographics')}}">Demographics</a>
             </div>
             <hr/>
+            @endauth
             @yield('content')
         </div>
     </main>

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <search-params v-if="!hasResults" @search="search">
+        <search-params v-if="!hasResults" @restart="$emit('restart')" @search="search">
 
         </search-params>
 
-        <select-user v-if="hasResults" :users="results" @reset="reset" @selected="uidChosen">
+        <select-user v-if="hasResults" :users="results" @restart="$emit('restart')" @reset="reset" @selected="uidChosen">
 
         </select-user>
 

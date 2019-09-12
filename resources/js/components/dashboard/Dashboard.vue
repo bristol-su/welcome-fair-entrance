@@ -1,17 +1,34 @@
 <template>
     <div>
-        <overview>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box columnbox mt-4">
+                    <overview></overview>
+                </div>
+            </div>
+        </div>
 
-        </overview>
+        <div class="row">
 
-        <TimeOfEntry>
+            <div class="col-md-7">
+                <div class="box mt-4">
+                    <TimeOfEntry></TimeOfEntry>
+                </div>
+            </div>
 
-        </TimeOfEntry>
+            <div class="col-md-5">
+                <div class="box  mt-4">
+                    <TimeOfEntryCMvsNonCM></TimeOfEntryCMvsNonCM>
+                </div>
+            </div>
+        </div>
 
 
-        <TimeOfEntryCMvsNonCM>
 
-        </TimeOfEntryCMvsNonCM>
+
+
+
+
     </div>
 
 </template>

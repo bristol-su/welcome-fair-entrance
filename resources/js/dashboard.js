@@ -60,7 +60,7 @@ export const ScanNotification = new Vue({
         },
 
         notify() {
-            if(this.$store.getters.updates === true) {
+            if (this.$store.getters.updates === true) {
                 this.$emit('scan');
             }
         }
@@ -89,8 +89,24 @@ let vue = new Vue({
     methods: {
         getScans() {
             this.$http.get('/api/scan')
-                .then(response => this.$store.commit('setScans', response.data))
+                .then(firstResponse => {
+                    let calls = [];
+                    for (let i = firstResponse.data.current_page + 1; i <= firstResponse.data.last_page; i++) {
+                        calls.push(this.$http.get('/api/scan', {params: {page: i}}));
+                    }
+                    this.$http.all(calls)
+                        .then(responses => responses.forEach((response) => this.pushScans(response.data.data)))
+                        .catch(error => console.log(error))
+                        .then(() => {
+                            this.pushScans(firstResponse.data.data);
+                            window.ScanNotification.$emit('scan')
+                        });
+                })
                 .catch(error => console.log(error));
+        },
+
+        pushScans(scans) {
+            this.$store.commit('pushScans', scans)
         }
     }
 });
