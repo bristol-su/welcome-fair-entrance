@@ -17,7 +17,7 @@ class ScanController extends Controller
     {
         $scan = Scan::create([
             'card_number' => $request->input('card_number'),
-            'scanned_at' => ($request->has('scanned_at')?Carbon::createFromFormat('d/m/Y H:i', $request->input('scanned_at')):Carbon::now())
+            'scanned_at' => ($request->has('scanned_at')?Carbon::createFromFormat('d/m/Y H:i:s', $request->input('scanned_at')):Carbon::now())
         ]);
 
         event(new ScanUpdateRequest($scan));
