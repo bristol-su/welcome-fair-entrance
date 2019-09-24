@@ -88,19 +88,22 @@ let vue = new Vue({
 
     methods: {
         getScans() {
-            this.$http.get('/api/scan')
-                .then(firstResponse => {
+            this.$http.get('/api/scan/count')
+                .then(countResponse => {
+                    let numPages = 10;
+                    let numPerPage = Math.round(parseInt(countResponse.data)) / numPages;
                     let calls = [];
-                    for (let i = firstResponse.data.current_page + 1; i <= firstResponse.data.last_page; i++) {
-                        calls.push(this.$http.get('/api/scan', {params: {page: i}}));
+                    for (let i = 1; i <= numPages; i++) {
+                        calls.push(this.$http.get('/api/scan', {params: {page: i, per_page: numPerPage }}));
                     }
                     this.$http.all(calls)
                         .then(responses => responses.forEach((response) => this.pushScans(response.data.data)))
                         .catch(error => console.log(error))
-                        .then(() => {
-                            this.pushScans(firstResponse.data.data);
-                            window.ScanNotification.$emit('scan')
-                        });
+                        .then(() => window.ScanNotification.$emit('scan'));
+                });
+            this.$http.get('/api/scan')
+                .then(firstResponse => {
+
                 })
                 .catch(error => console.log(error));
         },

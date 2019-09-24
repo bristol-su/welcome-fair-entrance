@@ -22,6 +22,7 @@ Route::post('/uid', 'Api\UidController@store');
 
 // New Scan and all scans
 Route::apiResource('scan', 'Api\ScanController')->only(['store', 'index']);
+Route::get('/scan/count', 'Api\ScanController@count');
 
 
 Route::post('/qrcode', 'Api\QrCodeController@store');

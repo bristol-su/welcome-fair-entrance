@@ -27,7 +27,12 @@ class ScanController extends Controller
 
     public function index(Request $request)
     {
-        return Scan::paginate(300);
+        return Scan::paginate($request->query('per_page', 100));
+    }
+
+    public function count()
+    {
+        return Scan::all()->count();
     }
 
 }
