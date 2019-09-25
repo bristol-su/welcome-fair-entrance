@@ -4,7 +4,7 @@ import Popper from 'popper.js';
 import 'bootstrap';
 import axios from 'axios';
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue';
 import Pusher from 'pusher-js';
 import store from './store/store';
 import Echo from 'laravel-echo'
