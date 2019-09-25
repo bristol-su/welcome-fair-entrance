@@ -1,5 +1,8 @@
 <?php
 
+use App\Support\Control\ControlClientServiceProvider;
+use App\Support\Control\ControlServiceProvider;
+
 return [
 
     /*
@@ -178,6 +181,9 @@ return [
          App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        ControlClientServiceProvider::class,
+        ControlServiceProvider::class
 
     ],
 

@@ -34,8 +34,9 @@ Vue.prototype.$http = axios;
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    encrypted: true
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    disableStats: true,
 });
 
 // Vuex
@@ -91,7 +92,7 @@ let vue = new Vue({
             this.$http.get('/api/scan/count')
                 .then(countResponse => {
                     let numPages = 10;
-                    let numPerPage = Math.round(parseInt(countResponse.data)) / numPages;
+                    let numPerPage = Math.round(parseInt(countResponse.data) / numPages);
                     let calls = [];
                     for (let i = 1; i <= numPages; i++) {
                         calls.push(this.$http.get('/api/scan', {params: {page: i, per_page: numPerPage }}));

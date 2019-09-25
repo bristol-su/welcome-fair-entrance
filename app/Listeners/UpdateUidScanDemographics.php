@@ -37,12 +37,16 @@ class UpdateUidScanDemographics implements ShouldQueue
     {
         $student = $this->unionCloud->getStudentFromUid($event->uid);
         $scan = $event->scan;
-        // TODO
-        $scan->department = $student->department;
-        $scan->study_type = ($student->programme[0]?$student->programme[0]['study_type']:'N/A');
-        $scan->programme_year = ($student->programme[0]?$student->programme[0]['programme_level']:'N/A');
+        if($student->programme === false) {
+            $programme = [];
+        } else {
+            $programme = $student->programme[count($student->programme)-1];
+        }
+        $scan->department = ($student->department?:'N/A');
+        $scan->study_type = (!empty($programme)?$programme['study_type']:'N/A');
+        $scan->programme_year = (!empty($programme)?$programme['programme_level']:'N/A');
         $scan->age = $student->dob->age;
-        $scan->gender = $student->gender;
+        $scan->gender = ($student->gender?:'N/A');
         $scan->save();
     }
 }
