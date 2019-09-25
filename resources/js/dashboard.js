@@ -15,6 +15,7 @@ window.Vue = Vue;
 window.axios = axios;
 window._ = _;
 window.Popper = Popper.default;
+window.io = require('socket.io-client');
 
 //Vue
 Vue.use(BootstrapVue);
@@ -32,15 +33,9 @@ Vue.prototype.$http = axios;
 
 // Echo
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    wssPort: 6001,
-    encrypted: true,
-    enableTransports: ['ws', 'wss'],
-    disableStats: true,
-});
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001'
+}); 
 
 // Vuex
 window.store = store;
