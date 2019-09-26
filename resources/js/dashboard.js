@@ -34,12 +34,8 @@ Vue.prototype.$http = axios;
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    wssPort: 6001,
-    encrypted: true,
-    enableTransports: ['ws', 'wss'],
-    disableStats: true,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: true
 });
 
 // Vuex

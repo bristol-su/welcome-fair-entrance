@@ -20,10 +20,11 @@ class UidController
         } catch (ResourceNotFoundException $e) {
             return [];
         }
-
-
         return collect($result->toArray())->filter(function($user) use ($request){
-            return strtolower($user->surname) === strtolower($request->input('surname'));
+            if((bool)$request->input('exact', false) === true) {
+                return strtolower($user->surname) === strtolower($request->input('surname'));
+            }
+            return true;
         })->map(function($user) {
             return $user->attributes;
         })->take(50);

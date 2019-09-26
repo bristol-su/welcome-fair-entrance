@@ -31,7 +31,11 @@
             search(parameters) {
                 this.loading = true;
                 this.$http.get('/api/uid', {
-                    params: {dob: parameters.dob, surname: parameters.lastname}
+                    params: {
+                        dob: parameters.dob,
+                        surname: parameters.lastname,
+                        exact: true
+                    }
                 })
                     .then(response => this.setResults(response.data))
                     .catch(error => console.log(error))
@@ -57,7 +61,7 @@
         computed: {
             hasResults() {
                 return this.results.length > 0;
-            }
+            },
         }
     }
 </script>

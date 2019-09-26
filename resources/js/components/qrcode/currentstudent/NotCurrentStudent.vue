@@ -5,7 +5,7 @@
 
             <div class="text">
                 <div>
-                    If you are a stallholder, you should proceed to the entrance.
+                    If you are a stallholder, you should proceed to the stallholder entrance instead of the main entrance.
                 </div>
                 <div>
                     If you are not a stallholder, you should talk to a member of staff in a blue Bristol SU t-shirt.

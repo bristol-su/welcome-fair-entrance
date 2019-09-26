@@ -5,6 +5,9 @@
 </template>
 
 <script>
+
+    import {format} from 'date-fns';
+
     export default {
         name: "Index",
 
@@ -38,11 +41,25 @@
                 const bottomOfPage = visible + scrollY >= pageHeight;
                 return bottomOfPage || pageHeight < visible;
             },
+
+            toHumanDate(unix) {
+                return format(new Date(unix*1000), 'dd/MM/yy HH:mm:ss');
+            }
         },
 
         computed: {
             scanItems() {
-                return this.$store.getters.scansMostRecent.slice(0, this.maxElement);
+                return this.$store.getters.scansMostRecent.slice(0, this.maxElement).map(scan => {
+                    return {
+                        committee_member: scan.committee_member,
+                        department: scan.department,
+                        study_type: scan.study_type,
+                        programme_year: scan.programme_year,
+                        age: scan.age,
+                        gender: scan.gender,
+                        scanned_at: this.toHumanDate(scan.scanned_at)
+                    }
+                });
             },
 
             maxElement() {

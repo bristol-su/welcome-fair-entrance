@@ -12,7 +12,7 @@
                 <div v-if="!imageExists && !loading">
                     <b-button variant="warning" size="xs" @click="createQrCode()">Reload</b-button>
                 </div>
-                <div style="height: 251px; width: 202px; margin: auto;" :class="{bordered: !imageExists}" >
+                <div style="margin: auto;" :class="{bordered: !imageExists}" >
                     <img alt="Loading..." :src="'data:image/png;charset=utf-8;base64, ' + image" />
                 </div>
             </b-col>
