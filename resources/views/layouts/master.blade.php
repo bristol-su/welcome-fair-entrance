@@ -90,6 +90,7 @@
                 <a href="{{url('/scan/create')}}">Scanning</a>
                 <a href="{{url('/lookup')}}">Manual Entry</a>
                 <a href="{{url('/demographics')}}">Demographics</a>
+                <a href="{{config('app.software_url')}}">Software</a>
             </div>
             <hr/>
             @endauth

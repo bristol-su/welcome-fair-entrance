@@ -48,6 +48,9 @@ return [
 
     'debug' => env('APP_DEBUG', false),
 
+
+    'software_url' => env('SOFTWARE_URL', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL

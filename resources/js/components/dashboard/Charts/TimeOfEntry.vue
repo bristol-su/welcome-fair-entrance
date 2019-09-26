@@ -78,6 +78,7 @@
                 let seriesData = [];
                 for(let i = 0; i < bins.length-1;i++) {
                     let until = new Date(bins[i+1]);
+                    console.log(new Date(bins[i]), until);
                     seriesData.push([bins[i], this.$store.getters.scansInInterval(new Date(bins[i]), until).length]);
                 }
                 return seriesData;

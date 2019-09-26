@@ -26,7 +26,7 @@ const getters = {
         let lower = getters.scannedAtLowerLimits;
         let upper = getters.scannedAtUpperLimits;
         if(upper <= lower) {
-            upper = upper + 300;
+            upper = upper + 5;
         }
         let increment = differenceInMilliseconds(upper, lower) / parseInt(numberOfBins);
         let bins = [];
