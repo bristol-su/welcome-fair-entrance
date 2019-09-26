@@ -1,13 +1,9 @@
 <template>
     <div>
+
         <b-row>
             <b-col>
-                <strong>Name:</strong> {{forename}} {{surname}}
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col>
-                <strong>DoB:</strong> {{formattedDob}} (age {{age}})
+                <div class="header">Please now scan this QR code at the appropriate desk</div>
             </b-col>
         </b-row>
 
@@ -24,7 +20,19 @@
 
         <b-row>
             <b-col>
-                <b-button variant="secondary" @click="$emit('restart')">Restart</b-button>
+                <strong>Name:</strong> {{forename}} {{surname}}
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col>
+                <strong>DoB:</strong> {{formattedDob}} (age {{age}})
+            </b-col>
+        </b-row>
+
+
+        <b-row>
+            <b-col>
+                <b-button variant="danger" @click="$emit('restart')" class="restart">Restart</b-button>
             </b-col>
         </b-row>
     </div>
@@ -101,5 +109,14 @@
 <style scoped>
     .bordered {
         border: 1px solid black;
+    }
+
+    .restart {
+        width: 70%;
+        margin: auto;
+    }
+
+    .header {
+        font-size: 1.1rem;
     }
 </style>

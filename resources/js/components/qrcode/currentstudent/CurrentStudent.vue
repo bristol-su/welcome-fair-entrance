@@ -1,19 +1,20 @@
 <template>
-    <div>
-        <b-row>
-            <b-col>
-                <h3>Are you a current student?</h3>
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col>
-                <b-button-group>
-                    <b-button @click="$emit('input', true)">Yes</b-button>
-                    <b-button @click="$emit('input', false)">No</b-button>
-                </b-button-group>
-            </b-col>
-        </b-row>
-    </div>
+    <b-row>
+        <b-col>
+            <b-button @click="$emit('input', true)" class="current-student">
+                <b-row>
+                    <b-col>
+                        <h2>Current Student?</h2>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col>
+                        Click here
+                    </b-col>
+                </b-row>
+            </b-button>
+        </b-col>
+    </b-row>
 </template>
 
 <script>
@@ -23,5 +24,11 @@
 </script>
 
 <style scoped>
-
+    .current-student {
+        color: #ffffff;
+        background-color: #5eaeba;
+        border: 0;
+        width: 80%;
+        height: 20vh;
+    }
 </style>

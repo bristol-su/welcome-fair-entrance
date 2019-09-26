@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search-params v-if="!hasResults" @restart="$emit('restart')" @search="search">
+        <search-params v-if="!hasResults" @restart="$emit('restart')" @search="search" :disable-buttons="loading">
 
         </search-params>
 
@@ -33,7 +33,7 @@
                 this.$http.get('/api/uid', {
                     params: {dob: parameters.dob, surname: parameters.lastname}
                 })
-                    .then(response => this.results = response.data)
+                    .then(response => this.setResults(response.data))
                     .catch(error => console.log(error))
                     .then(() => this.loading = false);
             },
@@ -44,6 +44,13 @@
 
             uidChosen(uid) {
                 this.$emit('input', uid)
+            },
+
+            setResults(results) {
+                if(results.length === 0) {
+                    alert('No users found. Speak to someone in a blue Bristol SU t-shirt for help.')
+                }
+                this.results = results;
             }
         },
 

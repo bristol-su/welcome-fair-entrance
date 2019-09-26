@@ -1,15 +1,17 @@
 <template>
     <div>
-        <b-button @click="$emit('reset')">Restart</b-button>
         <b-table :fields="fields" :items="users">
 
-            <template v-slot:cell(me)="row">
+            <template v-slot:cell(select)="row">
                 <b-button @click="choose(row.item)" class="mr-2" size="xs">
                     This is me!
                 </b-button>
             </template>
 
         </b-table>
+
+        <b-button @click="$emit('reset')" variant="danger" class="restart">Restart</b-button>
+
     </div>
 
 </template>
@@ -20,7 +22,7 @@
 
         data() {
             return {
-                fields: ['id', 'forename', 'surname', 'me']
+                fields: ['id', 'forename', 'surname', 'select']
             }
         },
 
@@ -41,5 +43,8 @@
 </script>
 
 <style scoped>
-
+    .restart {
+        width: 70%;
+        margin: auto;
+    }
 </style>

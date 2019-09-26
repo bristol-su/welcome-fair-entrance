@@ -1,10 +1,30 @@
 <template>
     <div>
 
-        <div v-if="isCurrentStudent === null">
-            <current-student @input="isCurrentStudent = $event">
+        <div v-if="isCurrentStudent === null" >
 
-            </current-student>
+            <b-row class="section">
+                <b-col>
+                    <welcome>
+
+                    </welcome>
+                </b-col>
+            </b-row>
+
+            <b-row class="section">
+                <b-col>
+                    <current-student @input="isCurrentStudent = $event">
+                    </current-student>
+                </b-col>
+            </b-row>
+            <br/>
+            <b-row class="section">
+                <b-col>
+                    <not-current-student>
+
+                    </not-current-student>
+                </b-col>
+            </b-row>
         </div>
 
         <div v-if="isCurrentStudent === true">
@@ -23,10 +43,6 @@
             </qr-code>
 
         </div>
-
-        <div v-if="isCurrentStudent === false">
-            Typeform integration needed
-        </div>
     </div>
 
 </template>
@@ -35,6 +51,8 @@
     import StudentFinder from './selection/StudentFinder';
     import QrCode from './qrcode/QrCode';
     import CurrentStudent from './currentstudent/CurrentStudent';
+    import NotCurrentStudent from './currentstudent/NotCurrentStudent';
+    import Welcome from './currentstudent/Welcome';
 
     export default {
         name: "NoCard",
@@ -43,6 +61,8 @@
             CurrentStudent,
             QrCode,
             StudentFinder,
+            NotCurrentStudent,
+            Welcome
         },
 
         data() {
@@ -106,5 +126,7 @@
 </script>
 
 <style scoped>
-
+    .section {
+        margin-bottom: 15px;
+    }
 </style>

@@ -22,7 +22,9 @@ class UidController
         }
 
 
-        return collect($result->toArray())->map(function($user) {
+        return collect($result->toArray())->filter(function($user) use ($request){
+            return strtolower($user->surname) === strtolower($request->input('surname'));
+        })->map(function($user) {
             return $user->attributes;
         })->take(50);
     }
