@@ -8,9 +8,11 @@ use App\Support\UnionCloud\UnionCloud;
 use Faker\Generator as Faker;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Redis;
 
 class AddToUnionCloud implements ShouldQueue
 {
+    use InteractsWithQueue;
     /**
      * @var UnionCloud
      */
@@ -34,8 +36,12 @@ class AddToUnionCloud implements ShouldQueue
      */
     public function handle(UidScanUpdateRequest $event)
     {
-        if(config('app.unioncloud.enable')) {
-            $this->unionCloud->addToUserGroup($event->uid, config('app.unioncloud.usergroup_id'));
-        }
+        Redis::throttle('unioncloud-usergroups')->allow(20)->every(60)->then(function() use ($event) {
+            if(config('app.unioncloud.enable')) {
+                $this->unionCloud->addToUserGroup($event->uid, config('app.unioncloud.usergroup_id'));
+            }
+        }, function() {
+            $this->release(rand(40, 90));
+        });
     }
 }

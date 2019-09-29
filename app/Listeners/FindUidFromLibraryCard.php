@@ -9,9 +9,11 @@ use App\Support\UnionCloud\UnionCloud;
 use Illuminate\Cache\Repository;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Redis;
 
 class FindUidFromLibraryCard implements ShouldQueue
 {
+    use InteractsWithQueue;
     /**
      * @var UnionCloud
      */
@@ -40,11 +42,16 @@ class FindUidFromLibraryCard implements ShouldQueue
      */
     public function handle(ScanUpdateRequest $event)
     {
-        $card = $event->scan->card_number;
-        $uid = $this->cache->remember(FindUidFromLibraryCard::class . 'card:' . $card, 1500, function() use ($card){
-            return $this->unionCloud->getUidFromLibraryCard($card);
+        Redis::throttle('unioncloud')->allow(30)->every(60)->then(function() use ($event) {
+            $card = $event->scan->card_number;
+            $uid = $this->cache->remember(FindUidFromLibraryCard::class . 'card:' . $card, 1500, function() use ($card){
+                return $this->unionCloud->getUidFromLibraryCard($card);
+            });
+
+            event(new UidScanUpdateRequest($event->scan, $uid));
+        }, function() {
+            $this->release(rand(40, 90));
         });
 
-        event(new UidScanUpdateRequest($event->scan, $uid));
     }
 }

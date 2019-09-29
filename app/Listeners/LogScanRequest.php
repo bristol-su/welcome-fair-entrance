@@ -2,8 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Events\ScanUpdateRequest;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
 class LogScanRequest implements ShouldQueue
 {
@@ -23,8 +24,8 @@ class LogScanRequest implements ShouldQueue
      * @param  object  $event
      * @return void
      */
-    public function handle(\App\Events\ScanUpdateRequest $event)
+    public function handle(ScanUpdateRequest $event)
     {
-        \Log::info($event->scan->card_number);
+        Log::info($event->scan->card_number);
     }
 }

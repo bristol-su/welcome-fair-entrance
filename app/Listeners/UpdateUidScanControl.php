@@ -10,9 +10,11 @@ use App\Support\Control\Control;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class UpdateUidScanControl implements ShouldQueue
 {
+    use InteractsWithQueue;
     /**
      * @var UserRepository
      */

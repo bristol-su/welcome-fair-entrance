@@ -32,7 +32,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         ScanUpdateRequest::class => [
             FindUidFromLibraryCard::class,
-	    LogScanRequest::class
+            LogScanRequest::class
         ],
     ];
 
