@@ -37,6 +37,7 @@ class UpdateUidScanDemographics implements ShouldQueue
     public function handle(UidScanUpdateRequest $event)
     {
         Redis::throttle('unioncloud')->allow(30)->every(60)->then(function() use ($event) {
+
             $student = $this->unionCloud->getStudentFromUid($event->uid);
             $scan = $event->scan;
             if($student->programme === false) {
